@@ -1,12 +1,12 @@
-๏ปฟ<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ุชุญููู ุงููุต ุฅูู ููุงู… ุจุงูุฐูุงุก ุงูุงุตุทูุงุนู</title>
-    <!-- ุชุญู…ูู Tailwind CSS -->
+    <title>สอๆํแ วแไี ลแ์ ฿แวใ ศวแะ฿วม วแวีุไวฺํ</title>
+    <!-- สอใํแ Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- ุชุญู…ูู ุฎุท Inter -->
+    <!-- สอใํแ ฮุ Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
         body {
             font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
         }
-        /* ุชุตู…ูู… ู…ุฎุตุต ูุดุฑูุท ุงูุชู…ุฑูุฑ */
+        /* สีใํใ ใฮีี แิัํุ วแสใัํั */
         textarea::-webkit-scrollbar {
             width: 8px;
         }
@@ -29,7 +29,7 @@
         textarea::-webkit-scrollbar-thumb:hover {
             background: #475569;
         }
-        /* ุฃููููุฉ ุงูุชุญู…ูู */
+        /* รํÞๆไษ วแสอใํแ */
         .loader {
             border: 4px solid #f3f4f6;
             border-top: 4px solid #3b82f6;
@@ -47,64 +47,64 @@
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-2xl">
         <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6">
-            ?? ู…ุญูู ุงููุต ุฅูู ููุงู… ุจุงูุฐูุงุก ุงูุงุตุทูุงุนู
+            ?? ใอๆแ วแไี ลแ์ ฿แวใ ศวแะ฿วม วแวีุไวฺํ
         </h1>
         
         <div class="space-y-5">
-            <!-- ุตูุฏูู ุฅุฏุฎุงู ุงููุต -->
+            <!-- ีไฯๆÞ ลฯฮวแ วแไี -->
             <div>
-                <label for="text-input" class="block text-sm font-medium text-gray-700 mb-2">ุงููุต ุงูู…ุฑุงุฏ ุชุญูููู:</label>
-                <textarea id="text-input" rows="8" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 resize-y" placeholder="ุฃุฏุฎู ุงููุต ููุง..."></textarea>
+                <label for="text-input" class="block text-sm font-medium text-gray-700 mb-2">วแไี วแใัวฯ สอๆํแๅ:</label>
+                <textarea id="text-input" rows="8" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 resize-y" placeholder="รฯฮแ วแไี ๅไว..."></textarea>
             </div>
             
-            <!-- ุญูู ุชูุฌููุงุช ุงูุตูุช -->
+            <!-- อÞแ สๆฬํๅวส วแีๆส -->
             <div>
-                <label for="speech-hint" class="block text-sm font-medium text-gray-700 mb-2">ุชูุฌููุงุช ุงูุตูุช (ุงุฎุชูุงุฑู):</label>
-                <input type="text" id="speech-hint" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" placeholder="ู…ุซุงู: ูู ุจุญู…ุงุณุ ุฃู ุจุตูุช ูุงุฏุฆ...">
+                <label for="speech-hint" class="block text-sm font-medium text-gray-700 mb-2">สๆฬํๅวส วแีๆส (วฮสํวัํ):</label>
+                <input type="text" id="speech-hint" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" placeholder="ใหวแ: Þแ ศอใวำก รๆ ศีๆส ๅวฯฦ...">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- ุงุฎุชูุงุฑ ุงูุตูุช -->
+                <!-- วฮสํวั วแีๆส -->
                 <div>
-                    <label for="voice-select" class="block text-sm font-medium text-gray-700 mb-2">ุงุฎุชุฑ ุงูุตูุช:</label>
+                    <label for="voice-select" class="block text-sm font-medium text-gray-700 mb-2">วฮสั วแีๆส:</label>
                     <select id="voice-select" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"></select>
                 </div>
                 
-                <!-- ุงุฎุชูุงุฑ ุงููุบุฉ -->
+                <!-- วฮสํวั วแแÛษ -->
                 <div>
-                    <label for="language-select" class="block text-sm font-medium text-gray-700 mb-2">ุงููุบุฉ (ุงุฎุชูุงุฑู):</label>
+                    <label for="language-select" class="block text-sm font-medium text-gray-700 mb-2">วแแÛษ (วฮสํวัํ):</label>
                     <select id="language-select" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"></select>
                 </div>
             </div>
 
-            <!-- ุฒุฑ ุงูุชุญููู -->
+            <!-- าั วแสอๆํแ -->
             <button id="generate-button" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out text-lg">
-                ุชุญููู ุฅูู ุตูุช
+                สอๆํแ ลแ์ ีๆส
             </button>
 
-            <!-- ู…ุคุดุฑ ุงูุชุญู…ูู -->
+            <!-- ใฤิั วแสอใํแ -->
             <div id="loader" class="hidden flex justify-center items-center py-4">
                 <div class="loader"></div>
-                <p class="mr-3 text-gray-600">ุฌุงุฑู ุงูู…ุนุงูุฌุฉ... ูุฏ ูุณุชุบุฑู ูุฐุง ุจุนุถ ุงูููุช.</p>
+                <p class="mr-3 text-gray-600">ฬวัํ วแใฺวแฬษ... Þฯ ํำสÛัÞ ๅะว ศฺึ วแๆÞส.</p>
             </div>
 
-            <!-- ุฑุณุงูุฉ ุงูุฎุทุฃ -->
+            <!-- ัำวแษ วแฮุร -->
             <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">
-                <strong class="font-bold">ุฎุทุฃ!</strong>
+                <strong class="font-bold">ฮุร!</strong>
                 <span class="block sm:inline" id="error-text"></span>
             </div>
 
-            <!-- ู…ุดุบู ุงูุตูุช -->
+            <!-- ใิÛแ วแีๆส -->
             <audio id="audio-player" controls class="w-full mt-4 hidden rounded-lg shadow-inner"></audio>
         </div>
     </div>
 
     <script type_module>
-        // --- ุฅุนุฏุงุฏุงุช ูุงุฌูุฉ ุจุฑู…ุฌุฉ ุงูุชุทุจููุงุช ---
-        const API_KEY = ""; // ุงุชุฑู ูุฐุง ูุงุฑุบูุงุ ุณูุชู… ุชูููุฑู ุจูุงุณุทุฉ ุงูุจูุฆุฉ
+        // --- ลฺฯวฯวส ๆวฬๅษ ศัใฬษ วแสุศํÞวส ---
+        const API_KEY = ""; // วสั฿ ๅะว ÝวัÛ๐วก ำํสใ สๆÝํัๅ ศๆวำุษ วแศํฦษ
         const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
         
-        // --- ูุงุฆู…ุฉ ุงูุฃุตูุงุช ุงูู…ุชุงุญุฉ ---
+        // --- Þวฦใษ วแรีๆวส วแใสวอษ ---
         const VOICES = [
             "Zephyr", "Puck", "Charon", "Kore", "Fenrir", "Leda", "Orus", "Aoede", "Callirrhoe", 
             "Autonoe", "Enceladus", "Iapetus", "Umbriel", "Algieba", "Despina", "Erinome", "Algenib", 
@@ -112,26 +112,26 @@
             "Achird", "Zubenelgenubi", "Vindemiatrix", "Sadachbia", "Sadaltager", "Sulafat"
         ];
         
-        // --- ูุงุฆู…ุฉ ุงููุบุงุช (ููุงุฎุชูุงุฑ ุงูุงุฎุชูุงุฑู) ---
+        // --- Þวฦใษ วแแÛวส (แแวฮสํวั วแวฮสํวัํ) ---
         const LANGUAGES = {
-            "ุงูุชุดุงู ุชููุงุฆู": "",
-            "ุงูุนุฑุจูุฉ (ู…ุตุฑ)": "ar-EG",
-            "ุงูุฅูุฌููุฒูุฉ (ุฃู…ุฑููุง)": "en-US",
-            "ุงูุฅูุฌููุฒูุฉ (ุงูููุฏ)": "en-IN",
-            "ุงูุฅุณุจุงููุฉ (ุฃู…ุฑููุง)": "es-US",
-            "ุงููุฑูุณูุฉ (ูุฑูุณุง)": "fr-FR",
-            "ุงูุฃูู…ุงููุฉ (ุฃูู…ุงููุง)": "de-DE",
-            "ุงูููุฏูุฉ (ุงูููุฏ)": "hi-IN",
-            "ุงูุฅูุทุงููุฉ (ุฅูุทุงููุง)": "it-IT",
-            "ุงููุงุจุงููุฉ (ุงููุงุจุงู)": "ja-JP",
-            "ุงูููุฑูุฉ (ููุฑูุง)": "ko-KR",
-            "ุงูุจุฑุชุบุงููุฉ (ุงูุจุฑุงุฒูู)": "pt-BR",
-            "ุงูุฑูุณูุฉ (ุฑูุณูุง)": "ru-RU",
-            "ุงูุชุฑููุฉ (ุชุฑููุง)": "tr-TR",
-            "ุงูููุชูุงู…ูุฉ (ููุชูุงู…)": "vi-VN"
+            "ว฿สิวÝ สแÞวฦํ": "",
+            "วแฺัศํษ (ใีั)": "ar-EG",
+            "วแลไฬแําํษ (รใัํ฿ว)": "en-US",
+            "วแลไฬแําํษ (วแๅไฯ)": "en-IN",
+            "วแลำศวไํษ (รใัํ฿ว)": "es-US",
+            "วแÝัไำํษ (Ýัไำว)": "fr-FR",
+            "วแรแใวไํษ (รแใวไํว)": "de-DE",
+            "วแๅไฯํษ (วแๅไฯ)": "hi-IN",
+            "วแลํุวแํษ (ลํุวแํว)": "it-IT",
+            "วแํวศวไํษ (วแํวศวไ)": "ja-JP",
+            "วแ฿ๆัํษ (฿ๆัํว)": "ko-KR",
+            "วแศัสÛวแํษ (วแศัวาํแ)": "pt-BR",
+            "วแัๆำํษ (ัๆำํว)": "ru-RU",
+            "วแสั฿ํษ (สั฿ํว)": "tr-TR",
+            "วแÝํสไวใํษ (Ýํสไวใ)": "vi-VN"
         };
 
-        // --- ุนูุงุตุฑ ุงููุงุฌูุฉ ---
+        // --- ฺไวีั วแๆวฬๅษ ---
         const textInput = document.getElementById('text-input');
         const speechHintInput = document.getElementById('speech-hint');
         const voiceSelect = document.getElementById('voice-select');
@@ -142,10 +142,10 @@
         const errorMessage = document.getElementById('error-message');
         const errorText = document.getElementById('error-text');
 
-        // --- ูุธุงุฆู ู…ุณุงุนุฏุฉ ูุชุญููู ุงูุตูุช ---
+        // --- ๆูวฦÝ ใำวฺฯษ แสอๆํแ วแีๆส ---
 
         /**
-         * ุชุญููู ุณูุณูุฉ Base64 ุฅูู ArrayBuffer.
+         * สอๆํแ ำแำแษ Base64 ลแ์ ArrayBuffer.
          */
         function base64ToArrayBuffer(base64) {
             const binaryString = window.atob(base64);
@@ -158,8 +158,8 @@
         }
 
         /**
-         * ุชุญููู ุจูุงูุงุช PCM ุงูุฃูููุฉ ุฅูู ู…ูู WAV (Blob).
-         * ูุงุฌูุฉ ุจุฑู…ุฌุฉ ุงูุชุทุจููุงุช ุชุฑุฌุน PCM 16-bit, 24000Hz, 1 channel.
+         * สอๆํแ ศํวไวส PCM วแรๆแํษ ลแ์ ใแÝ WAV (Blob).
+         * ๆวฬๅษ ศัใฬษ วแสุศํÞวส สัฬฺ PCM 16-bit, 24000Hz, 1 channel.
          */
         function pcmToWav(pcmData, sampleRate) {
             const numSamples = pcmData.length;
@@ -169,7 +169,7 @@
             const blockAlign = numChannels * bitsPerSample / 8;
             
             const wavDataSize = numSamples * numChannels * bitsPerSample / 8;
-            const riffDataSize = wavDataSize + 36; // 36 ุจุงูุช ููุชุฑููุณุฉ (header)
+            const riffDataSize = wavDataSize + 36; // 36 ศวํส แแสัๆํำษ (header)
 
             const buffer = new ArrayBuffer(riffDataSize + 8);
             const view = new DataView(buffer);
@@ -199,17 +199,17 @@
             writeString(view, 36, 'data');
             view.setUint32(40, wavDataSize, true);
 
-            // ูุชุงุจุฉ ุจูุงูุงุช PCM (ูู ุจุงููุนู Int16Array)
+            // ฿สวศษ ศํวไวส PCM (ๅํ ศวแÝฺแ Int16Array)
             const pcmView = new Int16Array(buffer, 44, numSamples);
             pcmView.set(pcmData);
 
             return new Blob([buffer], { type: 'audio/wav' });
         }
 
-        // --- ูุธููุฉ ุงุณุชุฏุนุงุก ูุงุฌูุฉ ุจุฑู…ุฌุฉ ุงูุชุทุจููุงุช ---
+        // --- ๆูํÝษ วำสฯฺวม ๆวฬๅษ ศัใฬษ วแสุศํÞวส ---
 
         /**
-         * ุชูููุฐ ุงุณุชุฏุนุงุก ูุงุฌูุฉ ุจุฑู…ุฌุฉ ุงูุชุทุจููุงุช ู…ุน ุฅุนุงุฏุฉ ุงูู…ุญุงููุฉ
+         * สไÝํะ วำสฯฺวม ๆวฬๅษ ศัใฬษ วแสุศํÞวส ใฺ ลฺวฯษ วแใอวๆแษ
          */
         async function fetchWithBackoff(url, options, retries = 3, delay = 1000) {
             for (let i = 0; i < retries; i++) {
@@ -219,22 +219,22 @@
                         return await response.json();
                     }
                     if (response.status === 429 || response.status >= 500) {
-                        // ุฅุนุงุฏุฉ ุงูู…ุญุงููุฉ ูู ุญุงูุฉ ุฎุทุฃ ุงูุฎุงุฏู… ุฃู ุชุฌุงูุฒ ุงูุญุฏ
+                        // ลฺวฯษ วแใอวๆแษ Ýํ อวแษ ฮุร วแฮวฯใ รๆ สฬวๆา วแอฯ
                         console.warn(`Attempt ${i + 1} failed with status ${response.status}. Retrying in ${delay}ms...`);
                         await new Promise(resolve => setTimeout(resolve, delay));
                         delay *= 2; // Exponential backoff
                     } else {
-                        // ุฎุทุฃ ู…ู ุฌุงูุจ ุงูุนู…ููุ ูุง ุชูู… ุจุฅุนุงุฏุฉ ุงูู…ุญุงููุฉ
+                        // ฮุร ใไ ฬวไศ วแฺใํแก แว สÞใ ศลฺวฯษ วแใอวๆแษ
                         const errorData = await response.json();
                         throw new Error(errorData.error?.message || `HTTP error! status: ${response.status}`);
                     }
                 } catch (error) {
                     if (i === retries - 1) {
-                        // ูุดูุช ุฌู…ูุน ุงูู…ุญุงููุงุช
+                        // Ýิแส ฬใํฺ วแใอวๆแวส
                         console.error('Fetch failed after retries:', error);
                         throw error;
                     }
-                    // ูู ุญุงูุฉ ูุดู ุงูุดุจูุฉุ ุงูุชุธุฑ ูุฃุนุฏ ุงูู…ุญุงููุฉ
+                    // Ýํ อวแษ Ýิแ วแิศ฿ษก วไสูั ๆรฺฯ วแใอวๆแษ
                     await new Promise(resolve => setTimeout(resolve, delay));
                     delay *= 2;
                 }
@@ -242,29 +242,29 @@
         }
         
         /**
-         * ุงููุธููุฉ ุงูุฑุฆูุณูุฉ ูุฅูุดุงุก ุงูููุงู…
+         * วแๆูํÝษ วแัฦํำํษ แลไิวม วแ฿แวใ
          */
         async function generateSpeech() {
             const text = textInput.value.trim();
             const hint = speechHintInput.value.trim();
             const voice = voiceSelect.value;
-            // ุงููุบุฉ ุบูุฑ ู…ุณุชุฎุฏู…ุฉ ู…ุจุงุดุฑุฉ ูู ูุฐุง ุงูุทูุจ ูุฃู ุงููู…ูุฐุฌ ููุชุดููุงุ
-            // ููููุง ูุญุชูุธ ุจูุง ูู ุงููุงุฌูุฉ ููุงุณุชุฎุฏุงู… ุงูู…ุณุชูุจูู ุงูู…ุญุชู…ู.
+            // วแแÛษ Ûํั ใำสฮฯใษ ใศวิัษ Ýํ ๅะว วแุแศ แรไ วแไใๆะฬ ํ฿สิÝๅวก
+            // แ฿ไไว ไอสÝู ศๅว Ýํ วแๆวฬๅษ แแวำสฮฯวใ วแใำสÞศแํ วแใอสใแ.
             // const language = languageSelect.value; 
 
             if (!text) {
-                showError("ุงูุฑุฌุงุก ุฅุฏุฎุงู ุจุนุถ ุงููุต ุฃููุงู.");
+                showError("วแัฬวม ลฯฮวแ ศฺึ วแไี รๆแว๐.");
                 return;
             }
 
-            // ุฅุนุฏุงุฏ ุงููุงุฌูุฉ ููุชุญู…ูู
+            // ลฺฯวฯ วแๆวฬๅษ แแสอใํแ
             generateButton.disabled = true;
             generateButton.classList.add('opacity-50', 'cursor-not-allowed');
             loader.classList.remove('hidden');
             audioPlayer.classList.add('hidden');
             errorMessage.classList.add('hidden');
 
-            // ุจูุงุก ุงููุต ุงูููุงุฆู ู…ุน ุงูุชูุฌูู
+            // ศไวม วแไี วแไๅวฦํ ใฺ วแสๆฬํๅ
             const promptText = hint ? `(${hint}): ${text}` : text;
 
             const payload = {
@@ -295,32 +295,32 @@
 
                 if (audioData && mimeType && mimeType.startsWith("audio/")) {
                     const sampleRateMatch = mimeType.match(/rate=(\d+)/);
-                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000; // ุงูุงูุชุฑุงุถู 24kHz
+                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000; // วแวÝสัวึํ 24kHz
 
-                    // 1. ูู ุชุดููุฑ Base64
+                    // 1. Ý฿ สิÝํั Base64
                     const pcmBuffer = base64ToArrayBuffer(audioData);
-                    // 2. ุชุญููู ุฅูู Int16Array (ูู…ุง ูู ู…ุชููุน s16le)
+                    // 2. สอๆํแ ลแ์ Int16Array (฿ใว ๅๆ ใสๆÞฺ s16le)
                     const pcm16 = new Int16Array(pcmBuffer);
-                    // 3. ุชุญููู PCM ุฅูู WAV Blob
+                    // 3. สอๆํแ PCM ลแ์ WAV Blob
                     const wavBlob = pcmToWav(pcm16, sampleRate);
-                    // 4. ุฅูุดุงุก URL ููู€ Blob
+                    // 4. ลไิวม URL แแÜ Blob
                     const audioUrl = URL.createObjectURL(wavBlob);
 
-                    // 5. ุนุฑุถ ุงูู…ุดุบู
+                    // 5. ฺัึ วแใิÛแ
                     audioPlayer.src = audioUrl;
                     audioPlayer.classList.remove('hidden');
-                    audioPlayer.play(); // ุชุดุบูู ุงูุตูุช ุชููุงุฆููุง
+                    audioPlayer.play(); // สิÛํแ วแีๆส สแÞวฦํ๐ว
 
                 } else {
                     console.error('Invalid API response structure:', result);
-                    showError("ูู… ูุชู… ุงูุนุซูุฑ ุนูู ุจูุงูุงุช ุตูุชูุฉ ูู ุงูุงุณุชุฌุงุจุฉ.");
+                    showError("แใ ํสใ วแฺหๆั ฺแ์ ศํวไวส ีๆสํษ Ýํ วแวำสฬวศษ.");
                 }
 
             } catch (error) {
                 console.error('Error generating speech:', error);
-                showError(`ุญุฏุซ ุฎุทุฃ: ${error.message}`);
+                showError(`อฯห ฮุร: ${error.message}`);
             } finally {
-                // ุฅุนุงุฏุฉ ุชูุนูู ุงููุงุฌูุฉ
+                // ลฺวฯษ สÝฺํแ วแๆวฬๅษ
                 generateButton.disabled = false;
                 generateButton.classList.remove('opacity-50', 'cursor-not-allowed');
                 loader.classList.add('hidden');
@@ -328,7 +328,7 @@
         }
         
         /**
-         * ุนุฑุถ ุฑุณุงูุฉ ุฎุทุฃ
+         * ฺัึ ัำวแษ ฮุร
          */
         function showError(message) {
             errorText.textContent = message;
@@ -336,20 +336,20 @@
         }
 
         /**
-         * ู…ูุก ุงูููุงุฆู… ุงูู…ูุณุฏูุฉ ุนูุฏ ุชุญู…ูู ุงูุตูุญุฉ
+         * ใแม วแÞๆวฦใ วแใไำฯแษ ฺไฯ สอใํแ วแีÝอษ
          */
         function populateDropdowns() {
-            // ู…ูุก ุฃุตูุงุช
+            // ใแม รีๆวส
             VOICES.forEach(voice => {
                 const option = document.createElement('option');
                 option.value = voice;
                 option.textContent = voice;
                 voiceSelect.appendChild(option);
             });
-            // ุชุญุฏูุฏ ุตูุช ุงูุชุฑุงุถู
+            // สอฯํฯ ีๆส วÝสัวึํ
             voiceSelect.value = "Puck"; 
 
-            // ู…ูุก ูุบุงุช
+            // ใแม แÛวส
             for (const [name, code] of Object.entries(LANGUAGES)) {
                 const option = document.createElement('option');
                 option.value = code;
@@ -358,7 +358,7 @@
             }
         }
 
-        // --- ุฑุจุท ุงูุฃุญุฏุงุซ ---
+        // --- ัศุ วแรอฯวห ---
         window.addEventListener('load', populateDropdowns);
         generateButton.addEventListener('click', generateSpeech);
     </script>
