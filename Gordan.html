@@ -1,0 +1,366 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحويل النص إلى كلام بالذكاء الاصطناعي</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- تحميل خط Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+        }
+        /* تصميم مخصص لشريط التمرير */
+        textarea::-webkit-scrollbar {
+            width: 8px;
+        }
+        textarea::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        textarea::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+        /* أيقونة التحميل */
+        .loader {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #3b82f6;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl rounded-2xl p-6 md:p-8 w-full max-w-2xl">
+        <h1 class="text-2xl md:text-3xl font-bold text-center text-gray-800 mb-6">
+            ?? محول النص إلى كلام بالذكاء الاصطناعي
+        </h1>
+        
+        <div class="space-y-5">
+            <!-- صندوق إدخال النص -->
+            <div>
+                <label for="text-input" class="block text-sm font-medium text-gray-700 mb-2">النص المراد تحويله:</label>
+                <textarea id="text-input" rows="8" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 resize-y" placeholder="أدخل النص هنا..."></textarea>
+            </div>
+            
+            <!-- حقل توجيهات الصوت -->
+            <div>
+                <label for="speech-hint" class="block text-sm font-medium text-gray-700 mb-2">توجيهات الصوت (اختياري):</label>
+                <input type="text" id="speech-hint" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" placeholder="مثال: قل بحماس، أو بصوت هادئ...">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- اختيار الصوت -->
+                <div>
+                    <label for="voice-select" class="block text-sm font-medium text-gray-700 mb-2">اختر الصوت:</label>
+                    <select id="voice-select" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"></select>
+                </div>
+                
+                <!-- اختيار اللغة -->
+                <div>
+                    <label for="language-select" class="block text-sm font-medium text-gray-700 mb-2">اللغة (اختياري):</label>
+                    <select id="language-select" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"></select>
+                </div>
+            </div>
+
+            <!-- زر التحويل -->
+            <button id="generate-button" class="w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out text-lg">
+                تحويل إلى صوت
+            </button>
+
+            <!-- مؤشر التحميل -->
+            <div id="loader" class="hidden flex justify-center items-center py-4">
+                <div class="loader"></div>
+                <p class="mr-3 text-gray-600">جاري المعالجة... قد يستغرق هذا بعض الوقت.</p>
+            </div>
+
+            <!-- رسالة الخطأ -->
+            <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg" role="alert">
+                <strong class="font-bold">خطأ!</strong>
+                <span class="block sm:inline" id="error-text"></span>
+            </div>
+
+            <!-- مشغل الصوت -->
+            <audio id="audio-player" controls class="w-full mt-4 hidden rounded-lg shadow-inner"></audio>
+        </div>
+    </div>
+
+    <script type_module>
+        // --- إعدادات واجهة برمجة التطبيقات ---
+        const API_KEY = ""; // اترك هذا فارغًا، سيتم توفيره بواسطة البيئة
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+        
+        // --- قائمة الأصوات المتاحة ---
+        const VOICES = [
+            "Zephyr", "Puck", "Charon", "Kore", "Fenrir", "Leda", "Orus", "Aoede", "Callirrhoe", 
+            "Autonoe", "Enceladus", "Iapetus", "Umbriel", "Algieba", "Despina", "Erinome", "Algenib", 
+            "Rasalgethi", "Laomedeia", "Achernar", "Alnilam", "Schedar", "Gacrux", "Pulcherrima", 
+            "Achird", "Zubenelgenubi", "Vindemiatrix", "Sadachbia", "Sadaltager", "Sulafat"
+        ];
+        
+        // --- قائمة اللغات (للاختيار الاختياري) ---
+        const LANGUAGES = {
+            "اكتشاف تلقائي": "",
+            "العربية (مصر)": "ar-EG",
+            "الإنجليزية (أمريكا)": "en-US",
+            "الإنجليزية (الهند)": "en-IN",
+            "الإسبانية (أمريكا)": "es-US",
+            "الفرنسية (فرنسا)": "fr-FR",
+            "الألمانية (ألمانيا)": "de-DE",
+            "الهندية (الهند)": "hi-IN",
+            "الإيطالية (إيطاليا)": "it-IT",
+            "اليابانية (اليابان)": "ja-JP",
+            "الكورية (كوريا)": "ko-KR",
+            "البرتغالية (البرازيل)": "pt-BR",
+            "الروسية (روسيا)": "ru-RU",
+            "التركية (تركيا)": "tr-TR",
+            "الفيتنامية (فيتنام)": "vi-VN"
+        };
+
+        // --- عناصر الواجهة ---
+        const textInput = document.getElementById('text-input');
+        const speechHintInput = document.getElementById('speech-hint');
+        const voiceSelect = document.getElementById('voice-select');
+        const languageSelect = document.getElementById('language-select');
+        const generateButton = document.getElementById('generate-button');
+        const loader = document.getElementById('loader');
+        const audioPlayer = document.getElementById('audio-player');
+        const errorMessage = document.getElementById('error-message');
+        const errorText = document.getElementById('error-text');
+
+        // --- وظائف مساعدة لتحويل الصوت ---
+
+        /**
+         * تحويل سلسلة Base64 إلى ArrayBuffer.
+         */
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        /**
+         * تحويل بيانات PCM الأولية إلى ملف WAV (Blob).
+         * واجهة برمجة التطبيقات ترجع PCM 16-bit, 24000Hz, 1 channel.
+         */
+        function pcmToWav(pcmData, sampleRate) {
+            const numSamples = pcmData.length;
+            const numChannels = 1;
+            const bitsPerSample = 16;
+            const byteRate = sampleRate * numChannels * bitsPerSample / 8;
+            const blockAlign = numChannels * bitsPerSample / 8;
+            
+            const wavDataSize = numSamples * numChannels * bitsPerSample / 8;
+            const riffDataSize = wavDataSize + 36; // 36 بايت للترويسة (header)
+
+            const buffer = new ArrayBuffer(riffDataSize + 8);
+            const view = new DataView(buffer);
+
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
+
+            // RIFF chunk descriptor
+            writeString(view, 0, 'RIFF');
+            view.setUint32(4, riffDataSize, true); // little-endian
+            writeString(view, 8, 'WAVE');
+
+            // "fmt " sub-chunk
+            writeString(view, 12, 'fmt ');
+            view.setUint32(16, 16, true); // Subchunk1Size (16 for PCM)
+            view.setUint16(20, 1, true);  // AudioFormat (1 for PCM)
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, byteRate, true);
+            view.setUint16(32, blockAlign, true);
+            view.setUint16(34, bitsPerSample, true);
+
+            // "data" sub-chunk
+            writeString(view, 36, 'data');
+            view.setUint32(40, wavDataSize, true);
+
+            // كتابة بيانات PCM (هي بالفعل Int16Array)
+            const pcmView = new Int16Array(buffer, 44, numSamples);
+            pcmView.set(pcmData);
+
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        // --- وظيفة استدعاء واجهة برمجة التطبيقات ---
+
+        /**
+         * تنفيذ استدعاء واجهة برمجة التطبيقات مع إعادة المحاولة
+         */
+        async function fetchWithBackoff(url, options, retries = 3, delay = 1000) {
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (response.ok) {
+                        return await response.json();
+                    }
+                    if (response.status === 429 || response.status >= 500) {
+                        // إعادة المحاولة في حالة خطأ الخادم أو تجاوز الحد
+                        console.warn(`Attempt ${i + 1} failed with status ${response.status}. Retrying in ${delay}ms...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    } else {
+                        // خطأ من جانب العميل، لا تقم بإعادة المحاولة
+                        const errorData = await response.json();
+                        throw new Error(errorData.error?.message || `HTTP error! status: ${response.status}`);
+                    }
+                } catch (error) {
+                    if (i === retries - 1) {
+                        // فشلت جميع المحاولات
+                        console.error('Fetch failed after retries:', error);
+                        throw error;
+                    }
+                    // في حالة فشل الشبكة، انتظر وأعد المحاولة
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2;
+                }
+            }
+        }
+        
+        /**
+         * الوظيفة الرئيسية لإنشاء الكلام
+         */
+        async function generateSpeech() {
+            const text = textInput.value.trim();
+            const hint = speechHintInput.value.trim();
+            const voice = voiceSelect.value;
+            // اللغة غير مستخدمة مباشرة في هذا الطلب لأن النموذج يكتشفها،
+            // لكننا نحتفظ بها في الواجهة للاستخدام المستقبلي المحتمل.
+            // const language = languageSelect.value; 
+
+            if (!text) {
+                showError("الرجاء إدخال بعض النص أولاً.");
+                return;
+            }
+
+            // إعداد الواجهة للتحميل
+            generateButton.disabled = true;
+            generateButton.classList.add('opacity-50', 'cursor-not-allowed');
+            loader.classList.remove('hidden');
+            audioPlayer.classList.add('hidden');
+            errorMessage.classList.add('hidden');
+
+            // بناء النص النهائي مع التوجيه
+            const promptText = hint ? `(${hint}): ${text}` : text;
+
+            const payload = {
+                contents: [{
+                    parts: [{ text: promptText }]
+                }],
+                generationConfig: {
+                    responseModalities: ["AUDIO"],
+                    speechConfig: {
+                        voiceConfig: {
+                            prebuiltVoiceConfig: { voiceName: voice }
+                        }
+                    }
+                },
+                model: "gemini-2.5-flash-preview-tts"
+            };
+
+            try {
+                const result = await fetchWithBackoff(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const part = result?.candidates?.[0]?.content?.parts?.[0];
+                const audioData = part?.inlineData?.data;
+                const mimeType = part?.inlineData?.mimeType;
+
+                if (audioData && mimeType && mimeType.startsWith("audio/")) {
+                    const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                    const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000; // الافتراضي 24kHz
+
+                    // 1. فك تشفير Base64
+                    const pcmBuffer = base64ToArrayBuffer(audioData);
+                    // 2. تحويل إلى Int16Array (كما هو متوقع s16le)
+                    const pcm16 = new Int16Array(pcmBuffer);
+                    // 3. تحويل PCM إلى WAV Blob
+                    const wavBlob = pcmToWav(pcm16, sampleRate);
+                    // 4. إنشاء URL للـ Blob
+                    const audioUrl = URL.createObjectURL(wavBlob);
+
+                    // 5. عرض المشغل
+                    audioPlayer.src = audioUrl;
+                    audioPlayer.classList.remove('hidden');
+                    audioPlayer.play(); // تشغيل الصوت تلقائيًا
+
+                } else {
+                    console.error('Invalid API response structure:', result);
+                    showError("لم يتم العثور على بيانات صوتية في الاستجابة.");
+                }
+
+            } catch (error) {
+                console.error('Error generating speech:', error);
+                showError(`حدث خطأ: ${error.message}`);
+            } finally {
+                // إعادة تفعيل الواجهة
+                generateButton.disabled = false;
+                generateButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                loader.classList.add('hidden');
+            }
+        }
+        
+        /**
+         * عرض رسالة خطأ
+         */
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+
+        /**
+         * ملء القوائم المنسدلة عند تحميل الصفحة
+         */
+        function populateDropdowns() {
+            // ملء أصوات
+            VOICES.forEach(voice => {
+                const option = document.createElement('option');
+                option.value = voice;
+                option.textContent = voice;
+                voiceSelect.appendChild(option);
+            });
+            // تحديد صوت افتراضي
+            voiceSelect.value = "Puck"; 
+
+            // ملء لغات
+            for (const [name, code] of Object.entries(LANGUAGES)) {
+                const option = document.createElement('option');
+                option.value = code;
+                option.textContent = name;
+                languageSelect.appendChild(option);
+            }
+        }
+
+        // --- ربط الأحداث ---
+        window.addEventListener('load', populateDropdowns);
+        generateButton.addEventListener('click', generateSpeech);
+    </script>
+</body>
+</html>
